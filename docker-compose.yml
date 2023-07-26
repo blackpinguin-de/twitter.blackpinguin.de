@@ -1,0 +1,17 @@
+version: "3.8"
+
+networks:
+  traefik:
+    external: false
+    name: traefik
+
+services:
+  twitter:
+    image: httpd:2.4.57-alpine3.18
+    volumes:
+    - ./html/:/usr/local/apache2/htdocs/
+    networks:
+      traefik:
+    labels:
+    - traefik.frontend.rule=Host:twitter.localhost,twitter.qsec15,twitter.blackpinguin.de
+    - traefik.port=80
